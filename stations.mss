@@ -19,7 +19,7 @@
     [zoom >= 15] {
     text-name: "[name]";
     text-face-name: @bold-fonts; 
-    text-size:9;
+    text-size:9 + @text_correction;
     text-fill: @station-fill;
     text-dy: -8;
     text-halo-radius: 1;
@@ -30,7 +30,7 @@
       point-file: url('symbols/station.png');
       text-name: "[name]";
       text-face-name: @bold-fonts;
-      text-size: 11;
+      text-size: 11 + @text_correction;
       text-fill: @station-fill;
       text-dy: -10;
       text-halo-radius: 1;
@@ -44,7 +44,7 @@
     point-placement: interior;
     text-name: "[name]";
     text-face-name: @bold-fonts;
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: grey;
     text-dy: -9;
     text-halo-radius: 1;
@@ -63,7 +63,7 @@
    [zoom >= 15] {
       text-name: "[name]";
       text-face-name: @book-fonts;
-      text-size: 8;
+      text-size: 8 + @text_correction;
       text-fill: @station-fill;
       text-dy: -8;
       text-halo-radius: 1;
@@ -76,7 +76,7 @@
       point-placement: interior;
       text-name: "[name]";
       text-face-name: @book-fonts;
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @station-fill;
       text-dy: -10;
       text-halo-radius: 1;

@@ -10,7 +10,7 @@
     [SCALERANK = 0],
     [SCALERANK = 1] {
       text-name: "[NAME]";
-      text-size: 8;
+      text-size: 8 + @text_correction;
       text-fill: grey;
       text-face-name: @book-fonts;
       text-halo-radius: 1;

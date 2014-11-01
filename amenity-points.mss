@@ -520,7 +520,7 @@
   [place = 'island'][zoom >= 12]::place {
     text-name: "[name]";
     text-fill: #000;
-    text-size: 9;
+    text-size: 9 + @text_correction;
 	text-dy: 9;
     text-face-name: @oblique-fonts;
     text-halo-radius: 1;
@@ -536,7 +536,7 @@
     [zoom >= 17] {
       text-name: "[name]";
       text-fill: @textcolor1;
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-dy: 9;
       text-face-name: @bold-fonts;
       text-halo-radius: 1;
@@ -547,7 +547,7 @@
 
   [amenity = 'bar'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 11;
     text-face-name: @bold-fonts;
@@ -560,7 +560,7 @@
   [amenity = 'courthouse']::amenity {
     [zoom >= 17] {
       text-name: "[name]";
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @textcolor1;
       text-dy: 12;
       text-face-name: @bold-fonts;
@@ -571,7 +571,7 @@
 
   [amenity = 'cinema'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 14;
     text-face-name: @bold-fonts;
@@ -587,7 +587,7 @@
  [amenity = 'parking'] [access = 'public'], [amenity = 'parking'] [access_class = 'NULL']::amenity {
 	
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 9;
     text-face-name: @book-fonts;
@@ -603,7 +603,7 @@
 
   [amenity = 'police'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 10;
     text-face-name: @book-fonts;
@@ -614,7 +614,7 @@
 
   [amenity = 'fire_station'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 9;
     text-face-name: @book-fonts;
@@ -625,7 +625,7 @@
 
   [amenity = 'place_of_worship'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor5;
     text-dy: 11;
     text-face-name: @book-fonts;
@@ -638,7 +638,7 @@
 /*
   [natural = 'wood'][zoom >= 15]::natural {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: darken(@wood, 50%);
     text-face-name: @book-fonts;
     text-halo-radius: 1;
@@ -652,14 +652,14 @@
   [natural = 'volcano']::natural {
     [zoom >= 13] {
       text-name: "[name]";
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @textcolor2;
       text-dy: 7;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
       text-placement: interior;
       ele/text-name: "[ele]";
-      ele/text-size: 9;
+      ele/text-size: 9 + @text_correction;
       ele/text-fill: @textcolor2;
       ele/text-dy: 6;
       ele/text-face-name: @oblique-fonts;
@@ -677,7 +677,7 @@
 	
 	   
 		   [zoom >=13]{
-			text-size:10;
+			text-size:10 + @text_correction;
 			text-dy:5;
 			text-name: "[name]";
 			text-fill:@textcolor2;
@@ -688,22 +688,22 @@
 		  
 		 [zoom >=14]::natural{
 			text-name: "[ele]";
-			text-size:9;
+			text-size:9 + @text_correction;
 			text-fill:@textcolor2;
 			text-face-name: @oblique-fonts;
 			text-halo-radius: 1;
 			text-placement: interior;
 			 [name_class = 'NULL']{
-				text-size:9;
+				text-size:9 + @text_correction;
 				text-dy:6;
 			  }
 		  
 			[natural = 'peak'][name_class != 'NULL']{
-					text-size:9;
+					text-size:9 + @text_correction;
 					text-dy:18;
 				  }
 			[natural = 'volcano'][name_class != 'NULL']{
-					text-size:9;
+					text-size:9 + @text_correction;
 					text-dy:16;
 				  }
 		}
@@ -713,7 +713,7 @@
 
   [natural = 'cave_entrance'][zoom >= 15]::natural {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor2;
     text-dy: 9;
     text-face-name: @book-fonts;
@@ -724,7 +724,7 @@
 
   [historic = 'memorial'][zoom >= 17], [historic = 'archaeological_site'][zoom >= 17]::historic {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor2;
     text-dy: 12;
     text-face-name: @book-fonts;
@@ -737,7 +737,7 @@
   
     [historic = 'castle'][zoom >= 17]::historic {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor3;
     text-dy: 12;
     text-face-name: @bold-fonts;
@@ -752,7 +752,7 @@
   [landuse = 'basin']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @water-text;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -766,7 +766,7 @@
   [leisure = 'swimming_pool']::leisure {
     [zoom >= 17] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: @marina-text;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -781,7 +781,7 @@
   [leisure = 'pitch']::leisure {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@stadium, 30%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -805,7 +805,7 @@
     [way_area >= 20000][zoom >= 16],
     [zoom >= 17] {
       text-name: "[name]";
-      text-size: 11;
+      text-size: 11 + @text_correction;
       text-fill: @park-text;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -818,7 +818,7 @@
   [landuse = 'quarry']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: #000;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -830,7 +830,7 @@
   [landuse = 'orchard']::landuse  {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@vineyard, 50%);
       text-face-name: @book-fonts;
       // extra halo needed to overpower the cemetery polygon pattern
@@ -843,7 +843,7 @@
   [landuse = 'grave_yard']::landuse  {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @park-text;
       text-face-name: @book-fonts;
       // extra halo needed to overpower the cemetery polygon pattern
@@ -855,7 +855,7 @@
   [landuse = 'residential']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: #000;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -866,7 +866,7 @@
   [landuse = 'garages']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@garages, 50%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -877,7 +877,7 @@
   [landuse = 'field']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@field, 50%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -889,7 +889,7 @@
   [landuse = 'grass']::landuse  {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@grass, 65%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -900,7 +900,7 @@
   [landuse = 'allotments']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@allotments, 60%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -911,7 +911,7 @@
   [landuse = 'forest']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@forest, 50%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -924,7 +924,7 @@
   [landuse = 'farmyard']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@farmland, 70%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -935,7 +935,7 @@
   [landuse = 'retail']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@retail, 60%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -947,7 +947,7 @@
   [landuse = 'railway']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@industrial, 60%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -958,7 +958,7 @@
   [landuse = 'commercial']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@commercial, 60%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -971,7 +971,7 @@
   [landuse = 'construction']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: darken(@construction, 50%);
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -983,7 +983,7 @@
    [point ='yes'][zoom >= 15]::leisure{
 	 [leisure_class != 'NULL'], [landuse_class != 'NULL']{
 		text-name: "[name]";
-		text-size: 9;
+		text-size: 9 + @text_correction;
 		text-fill: #000;
 		text-face-name: @book-fonts;
 		text-halo-radius: 2;
@@ -994,7 +994,7 @@
   
   [natural = 'bay'][zoom >= 14]::natural {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: #6699cc;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
@@ -1004,7 +1004,7 @@
 
   [natural = 'spring'][zoom >= 16]::natural {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: #6699cc;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
@@ -1015,7 +1015,7 @@
 
   [tourism = 'alpine_hut'][zoom >= 15]::tourism {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: #6699cc;
     text-dy: 10;
     text-face-name: @book-fonts;
@@ -1023,7 +1023,7 @@
     text-placement: interior;
     [zoom >= 16] {
       ele/text-name: "[ele]";
-      ele/text-size: 8;
+      ele/text-size: 8 + @text_correction;
       ele/text-fill: #6699cc;
       ele/text-dy: 22;
       ele/text-face-name: @oblique-fonts;
@@ -1037,14 +1037,14 @@
   */
   [amenity = 'shelter'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: #6699cc;
     text-dy: 10;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
     text-placement: interior;
     ele/text-name: "[ele]";
-    ele/text-size: 8;
+    ele/text-size: 8 + @text_correction;
     ele/text-fill: #6699cc;
     ele/text-dy: 22;
     ele/text-face-name: @oblique-fonts;
@@ -1054,7 +1054,7 @@
 
   [amenity = 'bank'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor3;
     text-dy: 9;
     text-halo-radius: 1;
@@ -1068,7 +1068,7 @@
   [tourism = 'chalet']::tourism {
     [zoom >= 17] {
       text-name: "[name]";
-      text-size: 10;
+      text-size: 10 + @text_correction;
       text-fill: @textcolor4;
       text-dy: 11;
       text-face-name: @book-fonts;
@@ -1079,7 +1079,7 @@
 
   [amenity = 'embassy'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 8;
     text-face-name: @book-fonts;
@@ -1089,7 +1089,7 @@
 
   [tourism = 'guest_house'][zoom >= 17]::tourism {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 9;
     text-face-name: @book-fonts;
@@ -1099,7 +1099,7 @@
 
   [tourism = 'bed_and_breakfast'][zoom >= 17]::tourism {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 7;
     text-face-name: @book-fonts;
@@ -1111,7 +1111,7 @@
   [amenity = 'bus_station']::amenity {
     [zoom >= 17] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: @textcolor4;
       text-dy: 9;
       text-face-name: @book-fonts;
@@ -1121,7 +1121,7 @@
 
   [tourism = 'camp_site'][zoom >= 17]::tourism {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 15;
     text-face-name: @book-fonts;
@@ -1131,7 +1131,7 @@
 
   [tourism = 'caravan_site'][zoom >= 17]::tourism {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor4;
     text-dy: 19;
     text-face-name: @book-fonts;
@@ -1141,7 +1141,7 @@
 
   [waterway = 'lock'][zoom >= 15]::waterway {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-dy: 10;
     text-fill: @textcolor4;
     text-face-name: @book-fonts;
@@ -1151,33 +1151,33 @@
 
   [leisure = 'marina'][zoom >= 15]::leisure {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: @marina-text;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
     text-wrap-width: 30;
     text-placement: interior;
     [zoom >= 17] {
-      text-size: 10;
+      text-size: 10 + @text_correction;
     }
   }
 
   [tourism = 'theme_park'][zoom >= 14]::tourism {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: @textcolor1;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
     text-wrap-width: 30;
     text-placement: interior;
     [zoom >= 16] {
-      text-size: 10;
+      text-size: 10 + @text_correction;
     }
   }
 
   [tourism = 'museum'][zoom >= 17]::tourism {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-dy: 10;
     text-fill: @textcolor1;
     text-face-name: @book-fonts;
@@ -1187,7 +1187,7 @@
 
   [amenity = 'prison'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 16;
     text-face-name: @book-fonts;
@@ -1197,7 +1197,7 @@
 
   [tourism = 'attraction'][zoom >= 16]::tourism {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: #660033;
     text-face-name: @book-fonts;
     text-halo-radius: 2;
@@ -1207,7 +1207,7 @@
 
   [amenity = 'university'][zoom >= 15]::amenity {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor5;
     text-face-name: @bold-fonts;
     text-halo-radius: 1;
@@ -1219,7 +1219,7 @@
   [amenity = 'college']::amenity {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: @textcolor5;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -1230,7 +1230,7 @@
 
   [amenity = 'kindergarten'][zoom >= 16]::amenity {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-fill: @textcolor5;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
@@ -1240,7 +1240,7 @@
 
   [man_made = 'lighthouse'][zoom >= 15]::man_made {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor5;
     text-dy: 16;
     text-face-name: @book-fonts;
@@ -1251,7 +1251,7 @@
 
   [man_made = 'windmill'][zoom >= 17]::man_made {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @textcolor1;
     text-dy: 12;
     text-face-name: @book-fonts;
@@ -1263,7 +1263,7 @@
   [amenity = 'hospital'][zoom >= 16]::amenity {
     text-name: "[name]";
     text-fill: #e21b00;
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-dy: 10;
     text-face-name: @book-fonts;
     text-halo-radius: 2;
@@ -1273,7 +1273,7 @@
 
   [amenity = 'pharmacy'][zoom >= 17]::amenity {
     text-name: "[name]";
-    text-size: 8;
+    text-size: 8 + @text_correction;
     text-dy: 9;
     text-fill: #e21b00;
     text-face-name: @book-fonts;
@@ -1295,7 +1295,7 @@
   [shop = 'florist']::shop {
     [zoom >= 18] {
       text-name: "[name]";
-      text-size: 8;
+      text-size: 8 + @text_correction;
       text-dy: 9;
       text-fill: #939;
       text-face-name: @book-fonts;
@@ -1309,7 +1309,7 @@
   [shop = 'department_store']::shop {
     [zoom >= 16] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-dy: 9;
       text-fill: #939;
       text-face-name: @book-fonts;
@@ -1321,7 +1321,7 @@
 
   [military = 'danger_area'][zoom >= 12]::military {
     text-name: "[name]";
-    text-size: 9;
+    text-size: 9 + @text_correction;
     text-fill: @military-text;
     text-face-name: @bold-fonts;
     text-halo-radius: 1;
@@ -1334,7 +1334,7 @@
   [landuse = 'military']::landuse {
     [zoom >= 15] {
       text-name: "[name]";
-      text-size: 9;
+      text-size: 9 + @text_correction;
       text-fill: @military-text;
       text-face-name: @book-fonts;
       text-halo-radius: 1;
@@ -1346,7 +1346,7 @@
 
   [aeroway = 'gate'][zoom >= 17]::aeroway {
     text-name: "[ref]";
-    text-size: 10;
+    text-size: 10 + @text_correction;
     text-fill: #aa66cc;
     text-face-name: @book-fonts;
     text-halo-radius: 1;

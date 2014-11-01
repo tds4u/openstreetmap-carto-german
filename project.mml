@@ -473,7 +473,7 @@
 	"extent": "-20037508,-20037508,20037508,20037508",
 	"key_field": "",
 	"geometry_field": "way",
-	"dbname": "osm"
+        "dbname": "osm"
       },
       "id": "sports-grounds",
       "class": "",
@@ -495,7 +495,7 @@
 	"extent": "-20037508,-20037508,20037508,20037508",
 	"key_field": "",
 	"geometry_field": "way",
-	"dbname": "osm"
+        "dbname": "osm"
       },
       "id": "sports",
       "class": "",
@@ -517,7 +517,7 @@
 	"extent": "-20037508,-20037508,20037508,20037508",
 	"key_field": "",
 	"geometry_field": "way",
-	"dbname": "osm"
+        "dbname": "osm"
       },
       "id": "ski",
       "class": "",
@@ -1182,14 +1182,14 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,ref\n       from view_osmde_point\n       where place in ('country','state', 'continent')\n      ) as placenames_large",
+        "table": "(select way,place,get_localized_placename(name,tags->'name:de'::text,tags->'int_name'::text,tags->'name:en'::text,true) as name,ref,convert_to_integer(population) as population\n       from view_osmde_point\n       where place in ('continent','country') order by case place when 'country' then 1 when 'continent' then 2 end, population desc nulls last\n      ) as placenames_large",
         "extent": "-20037508,-20037508,20037508,20037508",
         "key_field": "",
         "geometry_field": "way",
         "dbname": "osm"
       },
       "id": "placenames-large",
-      "class": "country state",
+      "class": "continent country",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
@@ -1205,7 +1205,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,ref\n       from view_osmde_point\n       where place in ('city','metropolis','town') and capital='yes'\n      ) as placenames_capital",
+        "table": "(select way,place,get_localized_placename(name,tags->'name:de'::text,tags->'int_name'::text,tags->'name:en'::text,true) as name,ref,convert_to_integer(population) as population\n       from view_osmde_point\n       where place in ('city','metropolis','town') and capital='yes' order by population desc nulls last\n      ) as placenames_capital",
         "extent": "-20037508,-20037508,20037508,20037508",
         "key_field": "",
         "geometry_field": "way",
@@ -1228,7 +1228,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name\n      from view_osmde_point\n      where place in ('city','metropolis')\n        and (capital is null or capital != 'yes')\n      ) as placenames_medium",
+        "table": " (select way,place,get_localized_placename(name,tags->'name:de'::text,tags->'int_name'::text,tags->'name:en'::text,true) as name,convert_to_integer(population) as population\n      from view_osmde_point\n      where place in ('city','metropolis','town','large_town','small_town')\n        and (capital is null or capital != 'yes')\n      order by case place when 'city' then 1 when 'metropolis' then 2 when 'large_town' then 3 when 'town' then 4 when 'small_town' then 5 else 6 end, population desc nulls last\n      ) as placenames_medium",
         "extent": "-20037508,-20037508,20037508,20037508",
         "key_field": "",
         "geometry_field": "way",
@@ -1251,19 +1251,19 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": " (select way,place,get_localized_placename(name,\"name:de\",int_name,\"name:en\",false) as name,population\n      from view_osmde_point\n      where place in ('city','metropolis','town','large_town','small_town')\n        and (capital is null or capital != 'yes')\n      order by population desc\n      ) as placenames_medium2\n\t  ",
+        "table": "(select way,place,get_localized_placename(name,tags->'name:de'::text,tags->'int_name'::text,tags->'name:en'::text,true) as name,ref\n       from view_osmde_point\n       where place in ('state') order by population desc nulls last\n      ) as placenames_state",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
         "extent": "-20037508,-20037508,20037508,20037508",
         "dbname": "osm"
       },
-      "id": "placenames-medium2",
-      "class": "",
+      "id": "placenames-state",
+      "class": "state",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "placenames-medium2"
+      "name": "placenames-state"
     },
     {
       "geometry": "point",
@@ -1275,7 +1275,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name\n      from view_osmde_point\n      where place in ('suburb','village','large_village','hamlet','locality','isolated_dwelling','farm')\n      ) as placenames_small",
+        "table": "(select way,place,get_localized_placename(name,tags->'name:de'::text,tags->'int_name'::text,tags->'name:en'::text,true) as name\n      from view_osmde_point\n      where place in ('suburb','village','large_village','hamlet','locality','isolated_dwelling','farm')\n      ) as placenames_small",
         "extent": "-20037508,-20037508,20037508,20037508",
         "key_field": "",
         "geometry_field": "way",

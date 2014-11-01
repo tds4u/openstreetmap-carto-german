@@ -320,6 +320,51 @@ CREATE or REPLACE FUNCTION get_localized_name_without_brackets(name text, local_
   END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE or REPLACE FUNCTION get_localized_name(name text, local_name text, int_name text, name_en text) RETURNS TEXT AS $$
+  BEGIN
+    IF (local_name is NULL) THEN
+      IF (int_name is NULL) THEN
+	IF (name_en is NULL) THEN
+          if (name is NULL) THEN
+            return NULL;
+          END IF;
+          if (name = '') THEN
+            return '';
+          END IF;
+	  /* if transliteration is available add here with a latin1 check */
+          IF is_latin(name) THEN
+            return name;
+          ELSE
+            return transliterate(name);
+          END IF;
+	  return name;
+	ELSE
+	  IF (name_en != name) THEN
+	    IF is_latin(name) THEN
+	      return name;
+	    ELSE
+	      return name_en;
+	    END IF;
+          ELSE
+            return name;
+          END IF; 
+	END IF;        
+      ELSE
+	IF (int_name != name) THEN
+	  IF is_latin(name) THEN
+	    return name;
+	  ELSE
+	   return int_name;
+          END IF;
+	ELSE
+	  return name;
+	END IF;
+      END IF;
+    ELSE
+      return local_name;
+    END IF;
+  END;
+$$ LANGUAGE 'plpgsql';
 
 
 CREATE or REPLACE FUNCTION get_latin_name(name text, local_name text, int_name text, name_en text) RETURNS TEXT AS $$
