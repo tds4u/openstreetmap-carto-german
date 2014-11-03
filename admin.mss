@@ -5,14 +5,14 @@
 
 #admin-01234[zoom >= 4] {
   [admin_level = '2'],[admin_level = '3'] {
-    line-width: 0.75;
+    line-width: 0.6;
     line-color: @admin-boundaries1;
     [zoom >= 7] {
-      line-width: 1.5;
+      line-width: 2;
       line-color: @admin-boundaries2;
     }
     [zoom >= 8] {
-      line-width: 3;
+      line-width: 2.5;
     }
     [zoom >= 10] {
       line-color: @admin-boundaries3;
@@ -22,8 +22,8 @@
       [admin_level = '3'] {
         line-width: 5;
         line-dasharray: 4,2;
+        line-clip: false;
       }
-      opacity: 0.4;
     }
   }
   [admin_level = '4'][zoom >= 5] {
@@ -37,20 +37,19 @@
     [zoom >= 10] {
       line-width: 3;
     }
-    opacity: 0.4;
   }
 }
 
 #admin-5678[zoom >= 11] {
   [admin_level = '5'] {
-    line-width: 3;
     line-color: @admin-boundaries3;
+    line-width: 2;
     line-dasharray: 6,3,2,3,2,3;
     line-clip: false;
   }
   [admin_level = '6'] {
-    line-width: 2.5;
     line-color: @admin-boundaries3;
+    line-width: 2;
     line-dasharray: 6,3,2,3;
     line-clip: false;
   }
@@ -58,11 +57,12 @@
     [admin_level = '7'], [admin_level = '8'] {
       line-width: 2;
       line-color: @admin-boundaries3;
+      line-width: 1.5;
       line-dasharray: 5,2;
       line-clip: false;
     }
   }
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 #admin-other[zoom >= 13] {
@@ -73,7 +73,7 @@
     line-dasharray: 2,3;
     line-clip: false;
   }
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 #admin-text[zoom >= 16] {
@@ -96,22 +96,12 @@
       opacity: 0.15;
       line-color: green;
       line-width: 1.5;
-//      line-dasharray: 4,2;
+      line-dasharray: 4,2;
       [zoom >= 10] {
         line-width: 3;
-//        line-dasharray: 6,2;
+        line-dasharray: 6,2;
         line-join: bevel;
       }
     }
-  }
-  [way_area > 200000000][zoom >= 8][zoom < 12] {
-    text-name: "[name]";
-    text-size: 8 + @text_correction;
-    text-fill: #9c9;
-    text-face-name: @bold-fonts;
-    text-halo-radius: 1;
-    text-wrap-width: 14;
-    text-placement: interior;
-    [zoom >= 11] { text-size: 11 + @text_correction; }
   }
 }

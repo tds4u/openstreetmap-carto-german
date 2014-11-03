@@ -1,6 +1,5 @@
 Map {
   background-color: @water-color;
-  buffer-size: 256;
 }
 
 @book-fonts:    "DejaVu Sans Book", "Arundina Sans Regular", "Padauk Regular", "Khmer OS Metal Chrieng Regular",
@@ -19,4 +18,4 @@ Map {
 @water-color: #b5d0d0;
 @land-color: #f2efe9;
 @gwater-color:#97d0d0;
-@text_correction: 1;
+

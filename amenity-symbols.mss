@@ -2,7 +2,7 @@
   [aeroway = 'helipad'][zoom >= 16]::aeroway {
     point-file: url('symbols/helipad.p.16.png');
     text-name: "[name]";
-    text-size: 8 + @text_correction;
+    text-size: 8;
     text-fill: #6692da;
     text-dy: -10;
     text-face-name: @bold-fonts;
@@ -10,12 +10,12 @@
     text-placement: interior;
   }
   
-    /*airports werden zusätzl. im dt. Stil definiert */
+    /*airports werden zusÃ¤tzl. im dt. Stil definiert */
   [aeroway = 'airport']::aeroway {
 	  [zoom >= 9]{
 		point-file: url('symbols/airport.p.16.png');
 		text-name: "[name]";
-		text-size: 8 + @text_correction;
+		text-size: 8;
 		text-fill: #6692da;
 		text-dy: -12;
 		text-face-name: @bold-fonts;
@@ -25,7 +25,7 @@
 	   [zoom >= 11],[zoom = 12]{
 		point-file: url('symbols/airport.p.16.png');
 		text-name: "[name]";
-		text-size: 9 + @text_correction;
+		text-size: 9;
 		text-fill: #6692da;
 		text-face-name: @bold-fonts;
 		text-halo-radius: 1;
@@ -35,12 +35,12 @@
 	}
   
   [aeroway = 'aerodrome']::aeroway{
-	  /*übernommener Kommentar: "disable rendering on z10":*/
+	  /*Ã¼bernommener Kommentar: "disable rendering on z10":*/
 	  /*
 	  [zoom >= 10] {
       point-file: url('symbols/aerodrome.p.16.png');
 	  text-name: "[name]";
-	  text-size: 8 + @text_correction;
+	  text-size: 8;
       text-dy: -12;
 	  text-fill: #6692da;
 	  text-face-name: @oblique-fonts;
@@ -49,7 +49,7 @@
 	  */
     [zoom >= 11],[zoom=12]{
     text-name: "[name]";
-    text-size: 8 + @text_correction;
+    text-size: 8;
     text-fill: #6692da;
     text-face-name: @oblique-fonts;
     text-halo-radius: 1;
@@ -99,7 +99,7 @@
     }
   }
   
-  /*im dt. STil gehört auch die erste Bedingung zur Windkraft */
+  /*im dt. STil gehÃ¶rt auch die erste Bedingung zur Windkraft */
   [man_made = 'power_wind']::man_made,
   [power = 'generator']['generator:source' = 'wind']::power,
   [power = 'generator'][power_source = 'wind']::power {

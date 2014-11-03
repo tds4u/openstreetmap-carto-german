@@ -14,7 +14,7 @@
     text-wrap-width: 0;
     text-face-name: @book-fonts;
     text-fill: #444;
-    text-size: 9 + @text_correction;
+    text-size: 9;
   }
 }
 
@@ -24,10 +24,10 @@
     text-placement: interior;
     text-wrap-width: 20;
     text-face-name: @book-fonts;
-    text-size: 8 + @text_correction;
+    text-size: 8;
     text-fill: #444;
     [zoom >= 18] {
-      text-size: 9 + @text_correction;
+      text-size: 9;
     }
   }
 }
@@ -38,7 +38,7 @@
   [way_area >= 20000][zoom >= 16],
   [zoom >= 17] {
     text-name: "[name]";
-    text-size: 10 + @text_correction;
+    text-size: 10;
     text-fill: #4c8056;
     text-face-name: @book-fonts;
     text-halo-radius: 1;

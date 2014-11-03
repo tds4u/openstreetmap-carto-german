@@ -9,7 +9,7 @@ contains fixes for europ centric worldview :)
 @sport-surface-clay: #cc7e66;
 
 #sports [zoom>=14][angle_diff>85][angle_diff<95] {
-	[sport='tennis'][zoom>=17] {
+	[sport='tennis'][zoom>=16] {
 		[surface='clay']::surface { polygon-fill: @sport-surface-clay; }
 		[surface='grass']::surface { polygon-fill: @sport-surface-grass; }
 		[pitch_area<1100][d13>20][d13<52] {			/* area size / diagonal check */
@@ -32,7 +32,7 @@ contains fixes for europ centric worldview :)
 				point-ignore-placement: true;
 			}
 		}
-        [access='private'][zoom>=17] {
+        [access='private'][zoom>=16] {
         	line-width: 4;
         	line-color: #efa9a9;
         	line-dasharray: 6,8;
@@ -109,7 +109,7 @@ contains fixes for europ centric worldview :)
 		}
 	}
 	
-	[sport='basketball'][zoom>=17] {
+	[sport='basketball'][zoom>=16] {
 		[pitch_area<450][d13>20][d13<35] {
 			[d12>20][d12<30][d23>10][d23<20] { /* 12-longueur - 23-largeur */
 				point-file: url('symbols/sports/sports-basketball.svg');

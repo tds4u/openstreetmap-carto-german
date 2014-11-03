@@ -7,6 +7,7 @@
 @park: #b6fdb6; // also recreation_ground
 @wood: #aed1a0;
 @vineyard: #abdf96;
+@grassland: #c6e4b4;
 
 // --- sports ---
 
@@ -52,6 +53,12 @@
 @rest_area: #efc8c8; // also services
 @sand: #ffdf88;
 @school: #f0f0d8; // also university, college, hospital, kindergarten
+@scrub: #b5e3b5;
+@theme_park: #734a08;
+@quarry: #c5c3c3;
+@military: #f55;
+@zoo: #a4f3a1;
+@beach: #fff1ba;
 
 @borderline: #555;
 

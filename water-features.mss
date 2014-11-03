@@ -9,7 +9,7 @@
     text-name: "[name]";
     text-halo-radius: 1;
     text-fill: #222;
-    text-size: 8 + @text_correction;
+    text-size: 8;
     text-face-name: @book-fonts;
   }
 }
