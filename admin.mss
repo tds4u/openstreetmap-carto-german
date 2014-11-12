@@ -3,16 +3,16 @@
 @admin-boundaries3: #4D4D4D;
 @admin-boundaries_other: #8B7E66;
 
-#admin-01234[zoom >= 4] {
-  [admin_level = '2'],[admin_level = '3'] {
-    line-width: 0.6;
-    line-color: @admin-boundaries1;
-    [zoom >= 7] {
-      line-width: 2;
-      line-color: @admin-boundaries2;
+#admin-01234 {
+  [admin_level = '2'],
+  [admin_level = '3'] {
+    [zoom >= 4] {
+      line-color: @admin-boundaries1;
+      line-width: 0.6;
     }
-    [zoom >= 8] {
-      line-width: 2.5;
+    [zoom >= 7] {
+      line-color: @admin-boundaries2;
+      line-width: 2;
     }
     [zoom >= 10] {
       line-color: @admin-boundaries3;
@@ -26,36 +26,39 @@
       }
     }
   }
-  [admin_level = '4'][zoom >= 5] {
-    line-width: 0.6;
-    line-color: @admin-boundaries3;
-    line-dasharray: 4,3;
-    line-clip: false;
-    [zoom >= 8] {
+  [admin_level = '4'] {
+    [zoom >= 4] {
+      line-color: @admin-boundaries3;
+      line-width: 0.6;
+      line-dasharray: 4,3;
+      line-clip: false;
+    }
+    [zoom >= 7] {
       line-width: 1;
     }
-    [zoom >= 10] {
+    [zoom >= 11] {
       line-width: 3;
     }
   }
+  opacity: 0.4;
 }
 
-#admin-5678[zoom >= 11] {
-  [admin_level = '5'] {
+#admin-5678 {
+  [admin_level = '5'][zoom >= 11] {
     line-color: @admin-boundaries3;
     line-width: 2;
     line-dasharray: 6,3,2,3,2,3;
     line-clip: false;
   }
-  [admin_level = '6'] {
+  [admin_level = '6'][zoom >= 11] {
     line-color: @admin-boundaries3;
     line-width: 2;
     line-dasharray: 6,3,2,3;
     line-clip: false;
   }
-  [zoom >= 12] {
-    [admin_level = '7'], [admin_level = '8'] {
-      line-width: 2;
+  [admin_level = '7'],
+  [admin_level = '8'] {
+    [zoom >= 12] {
       line-color: @admin-boundaries3;
       line-width: 1.5;
       line-dasharray: 5,2;
@@ -65,13 +68,15 @@
   opacity: 0.5;
 }
 
-#admin-other[zoom >= 13] {
+#admin-other {
   [admin_level = '9'],
   [admin_level = '10'] {
-    line-color: @admin-boundaries_other;
-    line-width: 2;
-    line-dasharray: 2,3;
-    line-clip: false;
+    [zoom >= 13] {
+      line-color: @admin-boundaries_other;
+      line-width: 2;
+      line-dasharray: 2,3;
+      line-clip: false;
+    }
   }
   opacity: 0.5;
 }
@@ -80,6 +85,16 @@
   text-name: "[name]";
   text-face-name: @book-fonts;
   text-fill: @admin-boundaries1;
+  text-placement: line;
+  text-halo-radius: 1.0;
+  text-placement: line;
+  text-dy: -10;
+}
+
+#nature-reserve-text[zoom >= 13][way_pixels > 192000] {
+  text-name: "[name]";
+  text-face-name: @book-fonts;
+  text-fill: green;
   text-placement: line;
   text-halo-radius: 1.0;
   text-placement: line;

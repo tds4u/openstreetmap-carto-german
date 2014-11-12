@@ -33,17 +33,17 @@
 }
 
 #building-text {
-  [way_area >= 150000][zoom >= 14],
-  [way_area >= 80000][zoom >= 15],
-  [way_area >= 20000][zoom >= 16],
+  [zoom >= 14][way_pixels > 3000],
+  [zoom >= 15][way_pixels > 2000],
+  [zoom >= 16][way_pixels > 1000],
   [zoom >= 17] {
     text-name: "[name]";
-    text-size: 10;
+    text-size: 11;
     text-fill: #4c8056;
     text-face-name: @book-fonts;
     text-halo-radius: 1;
     text-wrap-width: 20;
-    text-halo-fill: rgb(255,255,255);
+    text-halo-fill: rgba(255,255,255,0.5);
     text-placement: interior;
   }
 }

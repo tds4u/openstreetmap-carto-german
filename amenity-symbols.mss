@@ -8,61 +8,39 @@
     text-face-name: @bold-fonts;
     text-halo-radius: 1;
     text-placement: interior;
+    text-wrap-width: 30;
   }
   
-    /*airports werden zusätzl. im dt. Stil definiert */
-  [aeroway = 'airport']::aeroway {
-	  [zoom >= 9]{
-		point-file: url('symbols/airport.p.16.png');
-		text-name: "[name]";
-		text-size: 8;
-		text-fill: #6692da;
-		text-dy: -12;
-		text-face-name: @bold-fonts;
-		text-halo-radius: 1;
-		text-placement: interior;
-	  }
-	   [zoom >= 11],[zoom = 12]{
-		point-file: url('symbols/airport.p.16.png');
-		text-name: "[name]";
-		text-size: 9;
-		text-fill: #6692da;
-		text-face-name: @bold-fonts;
-		text-halo-radius: 1;
-		text-placement: interior;
-	  }
-	  
-	}
+  /* im dt. Stil zusätzlich definiert */
+  [aeroway = 'airport'][zoom >= 9][zoom < 13]::aeroway {
+    point-file: url('symbols/airport.p.16.png');
+    text-name: "[name]";
+    text-fill: #6692da;
+    text-face-name: @bold-fonts;
+    text-halo-radius: 1;
+    text-dy: -12;
+    text-placement: interior;
+    [zoom >= 9]{
+      text-size: 8;
+   }
+   [zoom >= 11],[zoom = 12]{
+      text-size: 9;
+      text-wrap-width: 30;
+    }	  
+  }
   
-  [aeroway = 'aerodrome']::aeroway{
-	  /*übernommener Kommentar: "disable rendering on z10":*/
-	  /*
-	  [zoom >= 10] {
+  [aeroway = 'aerodrome'][zoom >= 10][zoom < 13]::aeroway {
+    [zoom < 11] {
       point-file: url('symbols/aerodrome.p.16.png');
-	  text-name: "[name]";
-	  text-size: 8;
       text-dy: -12;
-	  text-fill: #6692da;
-	  text-face-name: @oblique-fonts;
-	  text-placement: interior;
-	  }
-	  */
-    [zoom >= 11],[zoom=12]{
+    }
     text-name: "[name]";
     text-size: 8;
     text-fill: #6692da;
     text-face-name: @oblique-fonts;
     text-halo-radius: 1;
     text-placement: interior;
-  		}
-	}
-	
-  [railway = 'level_crossing'][zoom >= 14]::railway {
-    point-file: url('symbols/level_crossing.png');
-    point-placement: interior;
-    [zoom >= 16] {
-      point-file: url('symbols/level_crossing2.png');
-    }
+    text-wrap-width: 30;
   }
 
   [man_made = 'lighthouse'][zoom >= 15]::man_made {
@@ -70,7 +48,7 @@
     point-placement: interior;
   }
 
-  [natural = 'peak'][zoom >= 13]::natural {
+  [natural = 'peak'][zoom >= 11]::natural {
     point-file: url('symbols/peak.png');
     point-placement: interior;
   }
@@ -99,7 +77,7 @@
     }
   }
   
-  /*im dt. STil gehört auch die erste Bedingung zur Windkraft */
+  /* im dt. Stil gehört auch die erste Bedingung zur Windkraft */
   [man_made = 'power_wind']::man_made,
   [power = 'generator']['generator:source' = 'wind']::power,
   [power = 'generator'][power_source = 'wind']::power {
@@ -108,7 +86,6 @@
       point-placement: interior;
     }
   }
-
 
   [man_made = 'windmill'][zoom >= 16]::man_made {
     point-file: url('symbols/windmill.png');
@@ -119,26 +96,33 @@
     point-file: url('symbols/communications.p.20.png');
     point-placement: interior;
   }
+}
 
-  [highway = 'mini_roundabout'][zoom >= 15]::highway {
+.amenity-low-priority {
+  [railway = 'level_crossing'][zoom >= 14]::railway {
+    point-file: url('symbols/level_crossing.svg');
+    point-placement: interior;
+    [zoom >= 16] {
+      point-file: url('symbols/level_crossing2.svg');
+    }
+  }
+
+  [highway = 'mini_roundabout'][zoom >= 16]::highway {
     point-file: url('symbols/mini_round.png');
     point-placement: interior;
-
   }
 
   [highway = 'gate']::highway,
   [barrier = 'gate']::barrier {
-    [zoom >= 15] {
+    [zoom >= 16] {
       point-file: url('symbols/gate2.png');
       point-placement: interior;
-
     }
   }
 
   [barrier = 'lift_gate'][zoom >= 16]::barrier {
     point-file: url('symbols/liftgate.png');
     point-placement: interior;
-
   }
 
   [barrier = 'bollard'],

@@ -1,5 +1,5 @@
 scale: 1
-metatile: 2
+metatile: 4
 name: "OpenStreetMap Carto"
 description: "A faithful reimplementation of the standard OpenStreetMap style"
 bounds: &world
@@ -30,7 +30,7 @@ _parts:
     srs: "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
   osm2pgsql: &osm2pgsql
     type: "postgis"
-    dbname: "host=start42.de dbname=osm user=gis password=gis09 port=5432" 
+    dbname: "osm"
     key_field: ""
     geometry_field: "way"
     extent: "-20037508,-20037508,20037508,20037508"
@@ -103,7 +103,7 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, name, religion,
+            way, name, religion, way_pixels,
             case when leaf_type='broadleaved' then 'deciduous'
                  when leaf_type='needleleaved' then 'coniferous'
                  when leaf_type='mixed' then 'mixed'
@@ -120,9 +120,10 @@ Layer:
               ('power_' || (CASE WHEN power IN ('station', 'sub_station', 'substation', 'generator') THEN power ELSE NULL END)) AS power,
               ('tourism_' || (CASE WHEN tourism IN ('attraction', 'camp_site', 'caravan_site', 'picnic_site', 'zoo') THEN tourism ELSE NULL END)) AS tourism,
               ('highway_' || (CASE WHEN highway IN ('services', 'rest_area') THEN highway ELSE NULL END)) AS highway,
-              CASE WHEN religion IN ('christian', 'jewish') THEN religion ELSE 'INT-generic'::text END AS religion
+              CASE WHEN religion IN ('christian', 'jewish') THEN religion ELSE 'INT-generic'::text END AS religion,
+              way_area/(!pixel_width!*!pixel_height!) AS way_pixels
             FROM view_osmde_polygon
-            WHERE landuse IS NOT NULL
+            WHERE (landuse IS NOT NULL
               OR leisure IS NOT NULL
               OR aeroway IN ('apron', 'aerodrome')
               OR amenity IN ('parking', 'university', 'college', 'school', 'hospital', 'kindergarten', 'grave_yard')
@@ -130,7 +131,8 @@ Layer:
               OR "natural" IN ('beach', 'desert', 'heath', 'mud', 'grassland', 'wood', 'sand', 'scrub')
               OR power IN ('station', 'sub_station', 'substation', 'generator')
               OR tourism IN ('attraction', 'camp_site', 'caravan_site', 'picnic_site', 'zoo')
-              OR highway IN ('services', 'rest_area')
+              OR highway IN ('services', 'rest_area'))
+              AND way_area/(!pixel_width!*!pixel_height!) > 0.01
             ORDER BY z_order, way_area DESC
           ) AS landcover
         ) AS features
@@ -1134,16 +1136,16 @@ Layer:
       encoding: "windows-1252"
   - id: "placenames-large"
     name: "placenames-large"
-    class: "country state"
+    class: "continent country"
     geometry: "point"
     <<: *extents
     Datasource:
       <<: *osm2pgsql
       table: |2-
         (SELECT way, place, get_localized_placename(name,"name:de",int_name,"name:en",false) as name, ref, population
-              FROM view_osmde_point
-              WHERE place IN ('country', 'state')
-              ORDER BY population DESC NULLS LAST
+               FROM view_osmde_point
+               WHERE place IN ('continent', 'country')
+               ORDER BY population DESC NULLS LAST
               ) AS placenames_large
     advanced: {}
   - id: "placenames-capital"
@@ -1155,9 +1157,9 @@ Layer:
       <<: *osm2pgsql
       table: |2-
         (SELECT way, place, get_localized_placename(name,"name:de",int_name,"name:en",false) as name, ref, population
-              FROM view_osmde_point
-              WHERE place IN ('city', 'town') AND capital = 'yes'
-              ORDER BY population DESC NULLS LAST
+               FROM view_osmde_point
+               WHERE place IN ('city', 'town') AND capital = 'yes'
+               ORDER BY population DESC NULLS LAST
               ) AS placenames_capital
     advanced: {}
   - id: "placenames-medium"
@@ -1174,6 +1176,20 @@ Layer:
                 AND (capital IS NULL OR capital != 'yes')
               ORDER BY population DESC NULLS LAST
               ) AS placenames_medium
+    advanced: {}
+  - id: "placenames-state"
+    name: "placenames-state"
+    class: "state"
+    geometry: "point"
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |2-
+        (SELECT way, place, get_localized_placename(name,"name:de",int_name,"name:en",false) as name, ref, population
+               FROM view_osmde_point
+               WHERE place IN ('state')
+               ORDER BY population DESC NULLS LAST
+              ) AS placenames_state
     advanced: {}
   - id: "placenames-small"
     name: "placenames-small"
@@ -1264,7 +1280,7 @@ Layer:
       <<: *osm2pgsql
       table: |2-
         (SELECT way, amenity,historic,ruins,tourism,
-         COALESCE('aeroway_' || aeroway, 'shop_' || CASE WHEN shop IN ('supermarket', 'bakery', 'butcher', 'clothes', 'fashion', 'convenience', 'department_store', 'doityourself', 'florist', 'hairdresser', 'car', 'car_repair', 'bicycle') THEN shop WHEN NOT shop IS NULL THEN 'other' ELSE NULL END, 'amenity_' || amenity, 'leisure_' || leisure, 'landuse_' || landuse, 'man_made_' || man_made, 'natural_' || "natural", 'place_' || place, 'tourism_' || tourism, 'military_' || military, 'waterway_' || waterway, 'historic_' || historic, 'lock_' || lock, 'highway_' || highway) AS feature, access, religion
+         COALESCE('aeroway_' || aeroway, 'shop_' || CASE WHEN shop IN ('supermarket', 'bakery', 'butcher', 'clothes', 'fashion', 'convenience', 'department_store', 'doityourself', 'florist', 'hairdresser', 'car', 'car_repair', 'bicycle', 'mall') THEN shop WHEN NOT shop IS NULL THEN 'other' ELSE NULL END, 'amenity_' || amenity, 'leisure_' || leisure, 'landuse_' || landuse, 'man_made_' || man_made, 'natural_' || "natural", 'place_' || place, 'tourism_' || tourism, 'military_' || military, 'waterway_' || waterway, 'historic_' || historic, 'lock_' || lock, 'highway_' || highway) AS feature, access, religion, denomination
               FROM view_osmde_polygon
               WHERE amenity IS NOT NULL
                  OR shop IN ('accessories', 'alcohol', 'antique', 'antiques', 'appliance', 'art', 'baby_goods', 'bag', 'bags', 'bakery', 'bathroom_furnishing', 'beauty', 'bed', 'betting', 'beverages', 'bicycle', 'boat', 'bookmaker', 'books', 'boutique', 'builder', 'building_materials', 'butcher', 'camera', 'car', 'car_parts', 'car_repair', 'car_service', 'carpet', 'charity', 'cheese', 'chemist', 'chocolate', 'clothes', 'coffee', 'communication', 'computer', 'confectionery', 'convenience', 'copyshop', 'cosmetics', 'craft', 'curtain', 'dairy', 'deli', 'delicatessen', 'department_store', 'discount', 'dive', 'doityourself', 'dry_cleaning', 'e-cigarette', 'electrical', 'electronics', 'energy', 'erotic', 'estate_agent', 'fabric', 'farm', 'fashion', 'fish', 'fishing', 'fishmonger', 'flooring', 'florist', 'food', 'frame', 'frozen_food', 'funeral_directors', 'furnace', 'furniture', 'gallery', 'gambling', 'games', 'garden_centre', 'gas', 'general', 'gift', 'glaziery', 'greengrocer', 'grocery', 'hairdresser', 'hardware', 'health', 'health_food', 'hearing_aids', 'herbalist', 'hifi', 'hobby', 'household', 'houseware', 'hunting', 'ice_cream', 'insurance', 'interior_decoration', 'jewellery', 'jewelry', 'kiosk', 'kitchen', 'laundry', 'leather', 'lighting', 'locksmith', 'lottery', 'mall', 'market', 'massage', 'medical', 'medical_supply', 'mobile_phone', 'money_lender', 'motorcycle', 'motorcycle_repair', 'music', 'musical_instrument', 'newsagent', 'office_supplies', 'optician', 'organic', 'outdoor', 'paint', 'pastry', 'pawnbroker', 'perfumery', 'pet', 'pets', 'pharmacy', 'phone', 'photo', 'photo_studio', 'photography', 'pottery', 'printing', 'radiotechnics', 'real_estate', 'religion', 'rental', 'salon', 'scuba_diving', 'seafood', 'second_hand', 'sewing', 'shoe_repair', 'shoes', 'shopping_centre', 'solarium', 'souvenir', 'sports', 'stationery', 'supermarket', 'tailor', 'tanning', 'tattoo', 'tea', 'ticket', 'tiles', 'tobacco', 'toys', 'trade', 'travel_agency', 'tyres', 'vacuum_cleaner', 'variety_store', 'video', 'video_games', 'watches', 'wholesale', 'wine', 'winery', 'yes')
@@ -1492,7 +1508,7 @@ Layer:
     Datasource:
       <<: *osm2pgsql
       table: |2-
-        (SELECT get_localized_name_without_brackets(name,"name:de",int_name,"name:en") as name, way, way_area
+        (SELECT get_localized_name_without_brackets(name,"name:de",int_name,"name:en") as name, way, way_area/(!pixel_width!*!pixel_height!) AS way_pixels
         FROM view_osmde_polygon
         WHERE building IS NOT NULL AND building NOT IN ('no', 'station', 'supermarket')) AS building_text
     advanced: {}
